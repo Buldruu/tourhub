@@ -88,6 +88,54 @@ dist
 
 Admin username/password-ийг `.env` файл дээр тохируулна.
 
+
+## GitHub Actions-аар GitHub Pages deploy хийх
+
+Энэ project дотор `.github/workflows/deploy.yml` workflow нэмэгдсэн. `main` branch рүү push хийх бүрт GitHub Actions автоматаар:
+
+1. `npm ci` ажиллуулна
+2. `npm run build` ажиллуулна
+3. `dist/` folder-ийг GitHub Pages рүү deploy хийнэ
+
+### GitHub дээр тохируулах
+
+Repository → **Settings** → **Pages** → **Build and deployment** хэсэгт:
+
+```txt
+Source: GitHub Actions
+```
+
+### Environment variables тохируулах
+
+Repository → **Settings** → **Secrets and variables** → **Actions** хэсэгт дараах утгуудыг нэмнэ.
+
+Variables:
+
+```txt
+VITE_WHATSAPP_LINK=https://wa.me/97699990000
+VITE_FACEBOOK_MESSENGER_LINK=https://m.me/aylal
+VITE_PHONE=+976 9999-0000
+```
+
+Secrets:
+
+```txt
+VITE_ADMIN_USERNAME=admin
+VITE_ADMIN_PASSWORD=your-secure-password
+```
+
+> Анхаар: Vite-ийн `VITE_` env утгууд browser build дотор ордог. Энэ demo admin нь production security биш. Жинхэнэ admin хэрэгтэй бол Supabase/Firebase/Auth.js зэрэг backend auth ашиглана.
+
+### Deploy хийх команд
+
+```bash
+git add .
+git commit -m "Add GitHub Actions deployment"
+git push origin main
+```
+
+Push хийсний дараа GitHub repo → **Actions** tab дээр workflow ажиллаж эхэлнэ. Амжилттай дууссаны дараа сайт GitHub Pages URL дээр гарна.
+
 ## GitHub publish хийх
 
 ```bash
